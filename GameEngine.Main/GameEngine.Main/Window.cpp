@@ -47,7 +47,7 @@ Window::Window(HINSTANCE hInstance) {
 	wcex.lpszClassName = title_w;
 
 	wcex.hInstance = hInstance;
-	wcex.lpfnWndProc = DefWindowProc;
+	//wcex.lpfnWndProc = DefWindowProc;
 	RegisterClassEx(&wcex);
 
 	hWnd = CreateWindow(wcex.lpszClassName, title_w, WS_OVERLAPPEDWINDOW | WS_VISIBLE,
@@ -56,6 +56,7 @@ Window::Window(HINSTANCE hInstance) {
 		MessageBox(0, L"Failed to create window!.", 0, 0);
 		return;
 	}
+
 	SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)this);
 
 
@@ -70,12 +71,12 @@ LRESULT CALLBACK Window::WindowCallback(HWND hWnd, UINT uMsg, WPARAM wParam, LPA
 	
 	LRESULT result = 0;
 	switch (uMsg) {
-	case WM_CLOSE:
-	case WM_DESTROY: {
+	//case WM_CLOSE:
+	//case WM_DESTROY:
+	case WM_QUIT:
 		window->Close();
-	} break;
+		break;
 	case WM_SIZE: {
-		window->Close();
 	} break;
 	default: {
 		result = DefWindowProc(hWnd, uMsg, wParam, lParam);
