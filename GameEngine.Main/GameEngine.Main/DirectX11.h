@@ -12,6 +12,7 @@
 #pragma comment( lib, "dxgi.lib" )        // directx graphics interface
 #pragma comment( lib, "d3dcompiler.lib" ) // shader compiler
 
+#include "DevUtils.h"
 #include "Graphics.h"
 
 

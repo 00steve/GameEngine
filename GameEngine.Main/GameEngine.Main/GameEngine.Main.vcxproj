@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="DevUtils.h" />
     <ClInclude Include="DirectX11.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Graphics.h" />

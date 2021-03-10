@@ -1,15 +1,10 @@
-#include <iostream>
-#include <sstream>
 
+
+#include "DevUtils.h"
 #include "Window.h"
 #include "DirectX11.h"
 
-#define DBOUT( s )            \
-{                             \
-   std::wostringstream os_;    \
-   os_ << s;                   \
-   OutputDebugStringW( os_.str().c_str() );  \
-}
+
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 
@@ -24,7 +19,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	MSG msg = { 0 };
 
-	while (msg.message != WM_QUIT && w.IsOpen()) {
+	while (w.IsOpen()) { //msg.message != WM_QUIT && more shit to keep the program going
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);

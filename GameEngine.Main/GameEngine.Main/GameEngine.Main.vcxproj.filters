@@ -71,6 +71,9 @@
     <ClInclude Include="UnorderedList.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DevUtils.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Default.hlsl">

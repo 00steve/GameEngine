@@ -14,6 +14,8 @@ https://antongerdelan.net/opengl/d3d11.html
 
 
 DirectX11::DirectX11(HWND windowsHandle) {
+	hWnd = windowsHandle;
+
 	DXGI_SWAP_CHAIN_DESC swap_chain_descr = { 0 };
 	swap_chain_descr.BufferDesc.RefreshRate.Numerator = 0;
 	swap_chain_descr.BufferDesc.RefreshRate.Denominator = 1;
@@ -25,7 +27,7 @@ DirectX11::DirectX11(HWND windowsHandle) {
 	
 	//only needed if putting in window (I wonder if I can do this 
 	//later when I add the graphics to a window or go fullscreen, etc.
-	swap_chain_descr.OutputWindow = windowsHandle;
+	swap_chain_descr.OutputWindow = hWnd;
 
 	//if not windowed, set to false, can I update this later to switch
 	//between fullscreen and windowed?
@@ -171,8 +173,17 @@ DirectX11::DirectX11(HWND windowsHandle) {
 	vertex_buff_descr.ByteWidth = sizeof(vertex_data_array);
 	vertex_buff_descr.Usage = D3D11_USAGE_DEFAULT;
 	vertex_buff_descr.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+
 	D3D11_SUBRESOURCE_DATA sr_data = { 0 };
 	sr_data.pSysMem = vertex_data_array;
+
+	//create a test buffer and test that the input parameters are correct
+	hr = device_ptr->CreateBuffer(
+		&vertex_buff_descr,
+		&sr_data,
+		NULL);
+	assert(hr == S_FALSE);
+
 	hr = device_ptr->CreateBuffer(
 		&vertex_buff_descr,
 		&sr_data,
@@ -210,7 +221,7 @@ void DirectX11::Redraw() {
 	  0.0f,
 	  (FLOAT)(winRect.right - winRect.left),
 	  (FLOAT)(winRect.bottom - winRect.top),
-	  -1.0f,
+	  0.0f,
 	  1.0f };
 	device_context_ptr->RSSetViewports(1, &viewport);
 
@@ -231,7 +242,7 @@ void DirectX11::Redraw() {
 	device_context_ptr->PSSetShader(pixel_shader_ptr, NULL, 0);
 
 
-	device_context_ptr->Draw(vertex_count, 0);
+	device_context_ptr->Draw(3, 0);
 
 
 	swap_chain_ptr->Present(1, 0);
