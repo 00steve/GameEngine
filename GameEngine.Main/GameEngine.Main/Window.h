@@ -1,7 +1,8 @@
 #pragma once
+#define WIN32_LEAN_AND_MEAN
 
-#include <string>
 #include <windows.h>
+#include <string>
 
 #include "Entity.h"
 
@@ -25,13 +26,15 @@ public:
 
 	bool Close();
 
+	HWND Handle();
+
 	bool IsOpen();
+
+	bool ReadMessage(Message message);
 
 	bool Title(std::string newTitle);
 
-
 	void Update();
-
 
 	Window(HINSTANCE hInstance);
 

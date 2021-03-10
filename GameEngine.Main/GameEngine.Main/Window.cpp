@@ -10,8 +10,28 @@ bool Window::Close() {
 }
 
 
+
+HWND Window::Handle() {
+	return hWnd;
+}
+
 bool Window::IsOpen() {
 	return IsWindowVisible(hWnd);
+}
+
+
+bool Window::ReadMessage(Message message) {
+	switch (message.Code) {
+	case ADD_GRAPHICS:
+		Message m;
+		m.Code = ADD_WINDOW_HANDLE;
+		m.Data = (void*)hWnd;
+		m.Sender = this;
+		SendMsg(m, message.Sender);
+	default:
+		return Entity::ReadMessage(message);
+	}
+	return false;
 }
 
 
@@ -25,6 +45,7 @@ bool Window::Title(std::string newTitle) {
 
 
 void Window::Update() {
+	Entity::Update();
 }
 
 
@@ -58,9 +79,6 @@ Window::Window(HINSTANCE hInstance) {
 	}
 
 	SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)this);
-
-
-
 	ShowWindow(hWnd, SW_SHOW);
 	UpdateWindow(hWnd);
 }
